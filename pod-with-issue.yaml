@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubelet-stats-test-pod
+  labels:
+    app: kubelet-stats-test-container
+spec:
+  initContainers:
+  - name: kubelet-stats-test-init-container
+    image: kubelet-stat-test-init-container-image
+    imagePullPolicy: Never
+    resources:
+      limits:
+        memory: 200Mi
+      requests:
+        memory: 64Mi
+    # volumeMounts:
+    # - mountPath: /empty-dir-mount-path
+    #   name: empty-dir-volume
+  # volumes:
+  # - emptyDir:
+  #     sizeLimit: 500M
+  #   name: empty-dir-volume
+  containers:
+    - name: kubelet-stats-test-container
+      image: alpine:3.21.2
+      imagePullPolicy: IfNotPresent
+      command:
+        - "/bin/sh"
+      args:
+        - "-c"
+        - "while true; do sleep 1; done"
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          memory: 64Mi

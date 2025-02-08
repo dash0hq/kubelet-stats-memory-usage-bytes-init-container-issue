@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubelet-stats-test-pod
+  labels:
+    app: kubelet-stats-test-container
+spec:
+  containers:
+    - name: kubelet-stats-test-container
+      image: alpine:3.21.2
+      imagePullPolicy: IfNotPresent
+      command:
+        - "/bin/sh"
+      args:
+        - "-c"
+        - "while true; do sleep 1; done"
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          memory: 64Mi
